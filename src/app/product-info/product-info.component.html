@@ -1,2 +1,10 @@
 <h1>{{product.title}}</h1>
 <img class="card-img-top" [src]="'http://kodytek.cz:8080/rest-api/' + product.images[0].miniaturePath" alt="Card image cap">
+<div class="container">
+  <p>Description: {{product.description}}</p>
+  <hr>
+  <p>In stock: {{product.unitsOnStock}}</p>
+  <p>Price: {{product.price/100}}</p>
+  <hr>
+  <div *ngFor="let i of parameterKeys">{{i}}: {{parameterKeys[i]}}</div>
+</div>

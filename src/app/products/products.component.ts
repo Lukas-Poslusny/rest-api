@@ -14,6 +14,18 @@ export class ProductsComponent implements OnInit {
 
   public categoryInfo: CategoryInfo;
   public products: Product[];
+  public currentPage = 0;
+  public pageCount;
+
+  increaseCurrentPage(pageNumber) {
+    this.currentPage += pageNumber;
+    this.loadCategory();
+  }
+
+  changeCurrentPage(pageNumber) {
+    this.currentPage = pageNumber;
+    this.loadCategory();
+  }
 
   constructor(private httpClient: HttpClient, private categoryS: CategoriesService, private router: Router, private route: ActivatedRoute) {
   }
@@ -22,15 +34,20 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['/product-info'], {queryParams: {id}});
   }
 
-  ngOnInit() {
+  loadCategory() {
     this.route.queryParams
       .subscribe(params => {
-        this.categoryS.getCategory(params.id)
+        this.categoryS.getCategory(params.id, this.currentPage)
           .subscribe((category: CategoryInfo) => {
+            this.pageCount = category.pagesCount;
             this.categoryInfo = category;
             this.products = category.products;
           });
       });
+  }
+
+  ngOnInit() {
+    this.loadCategory();
   }
 
 }

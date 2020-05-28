@@ -1,10 +1,35 @@
 <h1>{{categoryInfo.category.name}}</h1>
 
-<div class="card" style="width: 18rem;" *ngFor="let product of products" (click)="getLink(product.id)">
+<div class="cardspage">
+<div class="card products" style="width: 18rem;" *ngFor="let product of products" (click)="getLink(product.id)">
+  <div class="cards">
   <img class="card-img-top" [src]="'http://kodytek.cz:8080/rest-api/' + product.images[0].miniaturePath" alt="Card image cap">
-  <div class="card-body">
+    <div class="card-body">
     <h5 class="card-title">{{product.title}}</h5>
     <p class="card-text">{{product.price/100}}kč</p>
     <a href="#" class="btn btn-primary">Add to cart</a>
   </div>
+  </div>
 </div>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination pg-blue">
+    <li *ngIf="currentPage>0" class="page-item"><a class="page-link" (click)="increaseCurrentPage(-1)">Previous</a></li>
+    <li *ngIf="currentPage<=0"class="page-item"><a class="page-link non-active">Previous</a></li>
+
+    <li *ngIf="currentPage>=pageCount" class="page-item"><a class="page-link" (click)="changeCurrentPage(currentPage-2)">{{currentPage-1}}</a></li>
+    <li *ngIf="currentPage>0" class="page-item"><a class="page-link" (click)="changeCurrentPage(currentPage-1)">{{currentPage-1+1}}</a></li>
+
+    <li class="page-item"><a class="page-link current-page">{{currentPage+1}}</a></li>
+
+    <li *ngIf="currentPage<pageCount" class="page-item"><a class="page-link" (click)="changeCurrentPage(currentPage+1)">{{currentPage+1+1}}</a></li>
+    <li *ngIf="currentPage<=0" class="page-item"><a class="page-link" (click)="changeCurrentPage(2)">3</a></li>
+
+    <li *ngIf="currentPage<pageCount" class="page-item"><a class="page-link" (click)="increaseCurrentPage(1)">Next</a></li>
+    <li *ngIf="currentPage>=pageCount" class="page-item"><a class="page-link non-active">Next</a></li>
+
+  </ul>
+</nav>
+
+

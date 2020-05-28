@@ -19,12 +19,12 @@ export class CategoriesService {
     return this.httpClient.get<Category[]>('/api/categories/', {headers});
   }
 
-  getCategory(id: number) {
+  getCategory(id: number, currentPage: number) {
     const headers = new HttpHeaders().set('access-token', Token.access_token);
-    return this.httpClient.get<CategoryInfo>('/api/categories/' + id, {headers});
+    return this.httpClient.get<CategoryInfo>('/api/categories/' + id + '?page=' + currentPage, {headers});
   }
 
-  getProduct(id: number){
+  getProduct(id: number) {
     const headers = new HttpHeaders().set('access-token', Token.access_token);
     return this.httpClient.get<Product>('/api/products/' + id, {headers});
   }

@@ -16,6 +16,10 @@ export class ProductInfoComponent implements OnInit {
   constructor(private httpClient: HttpClient, private categoryS: CategoriesService, private route: ActivatedRoute) {
   }
 
+  get parameterKeys() {
+    return Object.keys(this.product.parameters);
+  }
+
   ngOnInit() {
     this.route.queryParams
       .subscribe(params => {
